@@ -31,7 +31,7 @@ jobs:
           go install github.com/gonejack/html-to-epub@latest
           html-to-epub -o latestupdate.epub \
           --cover ./cover.png \
-          --title ${date +%y-%m-%d}"KingsRSS Updates" \
+          --title "KingsRSS Updates" \
           --author "KingsRSS" \
           ./html/*
       - uses: stefanzweifel/git-auto-commit-action@v5.0.1

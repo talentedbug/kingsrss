@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
       - run: |
-          rm ./*.epub -f
+          rm ./latestupdate.epub -f
           rm ./html/* -f
   translate-rss-into-html:
     needs: clean-old
@@ -52,5 +52,3 @@ jobs:
           from: KingsRSS
           body: KingsRSS updates are delivered successfully!
           attachments: ./latestupdate.epub
-
-          

@@ -18,3 +18,10 @@ The deployment of KingsRSS is easy. Follow these steps.
 
 ### 1.1 Create a repository based upon this one
 
+KingsRSS is a personal service which *should* be deployed on your own account. This repository is not a public instance; any workflow runs are disabled. So let's first create your KingsRSS.
+
+First, click "Use this template" in the up-right corner and choose "Create a new repository".
+
+![alt text](./README.assets/1.png)
+
+

@@ -26,6 +26,8 @@ Click "Use this template" in the up-right corner and choose "Create a new reposi
 
 Now you can specify some settings about the new repository. The name and description are on your own, but it's **strongly** recommended to make it private, since your email password may be stored in explicit text.
 
+Remember to go to Settings -> Actions -> General to enable "Read and write permissions" for the workflow.
+
 ### 1.2 Basic and required configuration
 
 First you can try to use github.dev editor, which is similar to VS Code and easier to edit configuration files. Just modify the address from github.com to github.dev.

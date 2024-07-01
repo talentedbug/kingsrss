@@ -12,6 +12,7 @@ jobs:
           rm ./*.epub -f
           rm ./html/* -f
   translate-rss-into-html:
+    needs: clean-old
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v5.0.1
@@ -21,6 +22,7 @@ jobs:
           rss-to-html -f ./src.conf -o ./html
       - uses: stefanzweifel/git-auto-commit-action@v5.0.1
   translate-html-into-epub:
+    needs: translate-rss-into-html
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -34,6 +36,7 @@ jobs:
           ./html/*
       - uses: stefanzweifel/git-auto-commit-action@v5.0.1
   send-to-kindle:
+    needs: translate-html-into-epub
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7

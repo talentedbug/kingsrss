@@ -9,8 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
       - run: |
-          rm ./latestupdate.epub -f
+          rm ./*.epub -f
           rm ./html/* -f
+      - uses: stefanzweifel/git-auto-commit-action@v5.0.1
   translate-rss-into-html:
     needs: clean-old
     runs-on: ubuntu-latest

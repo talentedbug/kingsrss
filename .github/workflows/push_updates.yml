@@ -7,13 +7,15 @@ jobs:
   clean-old:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4.1.7
       - run: |
-          rm ./*.epub
-          rm ./html/*
+          rm ./*.epub -f
+          rm ./html/* -f
   translate-rss-into-html:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v5.0.1
+      - uses: actions/checkout@v4.1.7
       - run: |
           go install github.com/gonejack/rss-to-html@latest
           rss-to-html -f ./src.conf -o ./html
@@ -21,18 +23,20 @@ jobs:
   translate-html-into-epub:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4.1.7
       - uses: actions/setup-go@v5.0.1
       - run: |
           go install github.com/gonejack/html-to-epub@latest
-          html-to-epub -o ${date "+%Y-%m-%d"}.epub \
+          html-to-epub -o latestupdate.epub \
           --cover ./cover.png \
-          --title ${date "+%Y-%m-%d"}" KingsRSS Updates"
-          --author "KingsRSS"
+          --title ${date +%y-%m-%d}"KingsRSS Updates" \
+          --author "KingsRSS" \
           ./html/*
       - uses: stefanzweifel/git-auto-commit-action@v5.0.1
   send-to-kindle:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4.1.7
       - uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp-mail.outlook.com
@@ -44,6 +48,6 @@ jobs:
           to: somekindle@kindle.com
           from: KingsRSS
           body: KingsRSS updates are delivered successfully!
-          attachments: ./*.epub
+          attachments: ./latestupdate.epub
 
           

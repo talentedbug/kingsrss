@@ -11,7 +11,15 @@ jobs:
       - run: |
           rm ./*.epub -f
           rm ./html/* -f
-      - uses: stefanzweifel/git-auto-commit-action@v5.0.1
+          rm record.db -f
+      - run: |
+          git config --global user.email "kingsrssbot@noreply.github.com"
+          git config --global user.name "KingsRSSBot"
+          git add -A
+          git diff-index --quiet HEAD || ( \
+          git commit -m "[BOT] Clear old files" && \
+          git pull && \
+          git push origin main)
   translate-rss-into-html:
     needs: clean-old
     runs-on: ubuntu-latest
@@ -19,9 +27,19 @@ jobs:
       - uses: actions/setup-go@v5.0.1
       - uses: actions/checkout@v4.1.7
       - run: |
+          git config --global user.email "kingsrssbot@noreply.github.com"
+          git config --global user.name "KingsRSSBot"
+          git pull
+          echo "Current files under ./:"
+          ls
           go install github.com/gonejack/rss-to-html@latest
-          rss-to-html -f ./src.conf -o ./html
-      - uses: stefanzweifel/git-auto-commit-action@v5.0.1
+          rss-to-html -f ./src.conf -o ./html --verbose
+      - run: |
+          git add -A
+          git diff-index --quiet HEAD || ( \
+          git commit -m "[BOT] Save RSS into html" && \
+          git pull && \
+          git push origin main)
   translate-html-into-epub:
     needs: translate-rss-into-html
     runs-on: ubuntu-latest
@@ -29,27 +47,43 @@ jobs:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-go@v5.0.1
       - run: |
+          git config --global user.email "kingsrssbot@noreply.github.com"
+          git config --global user.name "KingsRSSBot"
+          git pull
+          echo "Current files under ./:"
+          ls
           go install github.com/gonejack/html-to-epub@latest
           html-to-epub -o latestupdate.epub \
           --cover ./cover.png \
           --title "KingsRSS Updates" \
           --author "KingsRSS" \
+          --verbose \
           ./html/*
-      - uses: stefanzweifel/git-auto-commit-action@v5.0.1
+      - run: |
+          git add -A
+          git diff-index --quiet HEAD || ( \
+          git commit -m "[BOT] Translate html into an epub" && \
+          git pull && \
+          git push origin main)
   send-to-kindle:
     needs: translate-html-into-epub
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
+      - run: |
+          git config --global user.email "kingsrssbot@noreply.github.com"
+          git config --global user.name "KingsRSSBot"
+          git pull
+          echo "Current files under ./:"
+          ls
       - uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp-mail.outlook.com
-          server_port: 587
-          secure: true
-          username: somename@outlook.com
-          password: somepassword
+          server_address: youremailproviders.smtp.address
+          server_port: portnumber
+          username: youremail@yourprovier.com
+          password: yourpassword
           subject: KingsRSS Updates
-          to: somekindle@kindle.com
+          to: yourkindleemail@kindle.com
           from: KingsRSS
           body: KingsRSS updates are delivered successfully!
           attachments: ./latestupdate.epub

@@ -1,5 +1,13 @@
 # KingsRSS
 
+> **Attention**: KingsRSS now have some issues:
+> 
+> 1. Since it depends on rss-to-html and html-to-epub, these progress can not be custimized.
+> 2. It is unable to compress pictures, so it can easily go past the limit on email attachments (20 MiB at most).
+> 3. GitHub Action is difficult to debug. More bugs can not be easily tested.
+> 
+> We look forward to anyone who can help solve this problem. : )
+
 > Everything is RSSible.  
 *From [RSSHub Homepage](https://docs.rsshub.app)*
 

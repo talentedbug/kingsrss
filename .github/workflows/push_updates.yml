@@ -1,7 +1,8 @@
 name: Gather, translate and send RSS updates
 on:
-  schedule:
-    - cron: '0 10 * * *'
+  #In a private repository, don't forget to uncomment the following 2 two lines
+  #schedule:
+  #  - cron: '0 10 * * *'
   workflow_dispatch:
 jobs:
   clean-old:

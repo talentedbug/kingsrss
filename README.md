@@ -1,12 +1,7 @@
 # KingsRSS
 
-> **Attention**: KingsRSS now have some issues:
-> 
-> 1. Since it depends on rss-to-html and html-to-epub, these progress can not be custimized.
-> 2. It is unable to compress pictures, so it can easily go past the limit on email attachments (20 MiB at most).
-> 3. GitHub Action is difficult to debug. More bugs can not be easily tested.
-> 
-> We look forward to anyone who can help solve this problem. : )
+> **Attention**: KingsRSS is now **DEPRECIATED**.
+> Due to questions around KingsRSS's dependencies, rss-to-html and html-to-epub, are not actively maintained and not customizable enough, KingsRSS has been depreciated and archived. A better solution to privately send RSS to Kindle is to use [Calibre News Delivery](https://github.com/bookfere/Calibre-News-Delivery) by Bookfere, which is more stable and customizable. If you insist using KingsRSS, any problems are on your own risk.
 
 > Everything is RSSible.  
 *From [RSSHub Homepage](https://docs.rsshub.app)*
